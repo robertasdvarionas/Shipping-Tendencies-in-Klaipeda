@@ -4,7 +4,7 @@
 
 ## GOAL
 
-The goal of this project is to apply data analysis tools - SQL and Power BI - to the dataset and then to understand what shipping tendencies or insights can be drawn in the port of Klaipėda.
+The goal of this project is to apply data analysis tools - SQL and Power BI - to the dataset and then to understand and visualise what shipping tendencies or insights can be drawn in the port of Klaipėda.
 
 ## DATA OVERVIEW
 
