@@ -15,6 +15,8 @@ The dataset contains information on international ships arriving at or departing
 Warships are not included in the dataset.
 Data has been collected since 2013.
 
+The dataset contains 47,802 rows.
+
 ## DATA CLEANING AND PREPARATION
 
 ## DATA VISUALIZATION AND INSIGHTS
