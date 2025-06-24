@@ -79,7 +79,8 @@ LOWER([laivo_tipas]) LIKE 'vidaus%';
 ```
 
 Then I check the ship registration country column.
-Power BI can take in Lithuanian country names and perfectly plot them on the map. However, I see that there are quite a few entries where the country or territory name will not be translated correcly by Power BI, therefore, some standartization is needed. To be safe, I changed the incorrect translations to English to be 100% sure that Power BI plots them correctly.
+
+Power BI can accept Lithuanian country names and perfectly plot them on the map. However, I see that there are quite a few entries where the country or territory name will not be translated correcly by Power BI, therefore, some standartization is needed. To be safe, I changed the incorrect translations to English to be 100% sure that Power BI plots them correctly.
 
 ```sql
 UPDATE Laivas_edited
@@ -126,6 +127,69 @@ UPDATE Laivas_edited
 SET registracijos_valstybes_pavadinimas = 'Saint Vincent and the Grenadines'
 WHERE
 LOWER([registracijos_valstybes_pavadinimas]) LIKE '%vinsentas%';
+```
+
+The same problem appears in the column of the country the ship is arriving from/departing to. I will standaridize the country names in the same manner as above.
+
+```sql
+UPDATE Laivas_edited
+SET atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas = 'Democratic Republic of the Congo'
+WHERE
+LOWER([atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas]) LIKE 'd.kongas%';
+
+UPDATE Laivas_edited
+SET atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas = 'Dominican Republic'
+WHERE
+LOWER([atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas]) LIKE 'dominikos%';
+
+UPDATE Laivas_edited
+SET atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas = 'Ivory Coast'
+WHERE
+LOWER([atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas]) LIKE 'dramblio%';
+
+UPDATE Laivas_edited
+SET atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas = 'United Kingdom'
+WHERE
+LOWER([atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas]) LIKE '%britanija%';
+
+UPDATE Laivas_edited
+SET atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas = 'Faroe Islands'
+WHERE
+LOWER([atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas]) LIKE 'farer%';
+
+UPDATE Laivas_edited
+SET atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas = 'New Zealand'
+WHERE
+LOWER([atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas]) LIKE '%zelandija%';
+
+UPDATE Laivas_edited
+SET atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas = 'South Africa'
+WHERE
+LOWER([atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas]) LIKE 'par';
+
+UPDATE Laivas_edited
+SET atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas = 'Saudi Arabia'
+WHERE
+LOWER([atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas]) LIKE '%arabija%';
+
+UPDATE Laivas_edited
+SET atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas = 'Trinidad and Tobago'
+WHERE
+LOWER([atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas]) LIKE 'trinidadas';
+
+UPDATE Laivas_edited
+SET atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas = 'Cape Verde'
+WHERE
+LOWER([atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas]) LIKE N'žaliojo%';
+```
+
+Lastly I see that the column of the country the ship is arriving from/departing to has entries where the country is unknown and is marked as NENURODYTA. I see that in all other columns unknown or missing entries are marked as NULL except for this column. Therefore, I will change the unknown entries to NULL as well to keep everything standartized.
+
+```sql
+UPDATE Laivas_edited
+SET atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas = NULL
+WHERE
+LOWER([atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas]) = 'NENURODYTA';
 ```
 
 ## DATA VISUALIZATION AND INSIGHTS
