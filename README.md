@@ -8,7 +8,7 @@ The goal of this project is to apply data analysis tools - SQL and Power BI - to
 
 ## DATA OVERVIEW
 
-The dataset was taken from Lietuvos Atvirų Duomenų Portalas and is publicly available in https://data.gov.lt/.
+The dataset was taken from Lietuvos Atvirų Duomenų Portalas and is publicly available on https://data.gov.lt/.
 Data was originally provided by AB Klaipėdos valstybinio jūrų uosto direkcija.
 
 The dataset contains information on international ships arriving at or departing from the port of Klaipėda registered by AB Klaipėdos valstybinio jūrų uosto direkcija – ship registration number, arrival or departure time, ship technical data and agent company.
@@ -18,6 +18,11 @@ Data has been collected since 2013.
 The dataset contains 47,802 rows.
 
 ## DATA CLEANING AND PREPARATION
+
+``` SELECT laivo_id, COUNT(*)
+FROM Laivas_edited
+GROUP BY laivo_id
+HAVING COUNT(*) > 1; ```
 
 ## DATA VISUALIZATION AND INSIGHTS
 
