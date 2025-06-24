@@ -19,10 +19,12 @@ The dataset contains 47,802 rows.
 
 ## DATA CLEANING AND PREPARATION
 
-``` SELECT laivo_id, COUNT(*)
+```
+SELECT laivo_id, COUNT(*)
 FROM Laivas_edited
 GROUP BY laivo_id
-HAVING COUNT(*) > 1; ```
+HAVING COUNT(*) > 1;
+```
 
 ## DATA VISUALIZATION AND INSIGHTS
 
