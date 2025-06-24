@@ -29,7 +29,8 @@ HAVING COUNT(*) > 1;
 ```
 
 Since there are no duplicates I move forward.
-One of the main columns in this dataset is the ship type and I see that there are way too many distinct ship types. It seems like a lot of them are overlapping in function or type, therefore, we can standardize them.
+
+One of the main columns in this dataset is the ship type and I see that there are way too many distinct ship types. It seems like a lot of them are overlapping in function or type, therefore, we can standardize them into concise categories for a nicer and cleaner visualization later on.
 
 ```sql
 UPDATE Laivas_edited
@@ -75,6 +76,56 @@ LOWER([laivo_tipas]) LIKE '%kitas%' OR
 LOWER([laivo_tipas]) LIKE '%transporto%' OR
 LOWER([laivo_tipas]) LIKE 'sportinis' OR
 LOWER([laivo_tipas]) LIKE 'vidaus%';
+```
+
+Then I check the ship registration country column.
+Power BI can take in Lithuanian country names and perfectly plot them on the map. However, I see that there are quite a few entries where the country or territory name will not be translated correcly by Power BI, therefore, some standartization is needed. To be safe, I changed the incorrect translations to English to be 100% sure that Power BI plots them correctly.
+
+```sql
+UPDATE Laivas_edited
+SET registracijos_valstybes_pavadinimas = 'Virgin Islands'
+WHERE
+LOWER([registracijos_valstybes_pavadinimas]) LIKE '%mergel%';
+
+UPDATE Laivas_edited
+SET registracijos_valstybes_pavadinimas = 'United Kingdom'
+WHERE
+LOWER([registracijos_valstybes_pavadinimas]) LIKE '%britanija%';
+
+UPDATE Laivas_edited
+SET registracijos_valstybes_pavadinimas = 'Faroe Islands'
+WHERE
+LOWER([registracijos_valstybes_pavadinimas]) LIKE 'farer%';
+
+UPDATE Laivas_edited
+SET registracijos_valstybes_pavadinimas = 'Cayman Islands'
+WHERE
+LOWER([registracijos_valstybes_pavadinimas]) LIKE 'kaiman%';
+
+UPDATE Laivas_edited
+SET registracijos_valstybes_pavadinimas = 'Marshall Islands'
+WHERE
+LOWER([registracijos_valstybes_pavadinimas]) LIKE N'maršalo%';
+
+UPDATE Laivas_edited
+SET registracijos_valstybes_pavadinimas = 'Aruba'
+WHERE
+LOWER([registracijos_valstybes_pavadinimas]) LIKE 'Olandijos%';
+
+UPDATE Laivas_edited
+SET registracijos_valstybes_pavadinimas = 'Saudi Arabia'
+WHERE
+LOWER([registracijos_valstybes_pavadinimas]) LIKE '%arabija%';
+
+UPDATE Laivas_edited
+SET registracijos_valstybes_pavadinimas = 'Saint Kitts'
+WHERE
+LOWER([registracijos_valstybes_pavadinimas]) LIKE '%kristoferis%';
+
+UPDATE Laivas_edited
+SET registracijos_valstybes_pavadinimas = 'Saint Vincent and the Grenadines'
+WHERE
+LOWER([registracijos_valstybes_pavadinimas]) LIKE '%vinsentas%';
 ```
 
 ## DATA VISUALIZATION AND INSIGHTS
