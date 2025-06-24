@@ -183,7 +183,7 @@ WHERE
 LOWER([atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas]) LIKE N'žaliojo%';
 ```
 
-Lastly I see that the column of the country the ship is arriving from/departing to has entries where the country is unknown and is marked as NENURODYTA. I see that in all other columns unknown or missing entries are marked as NULL except for this column. Therefore, I will change the unknown entries to NULL as well to keep everything standartized.
+Lastly I see that the column of the country the ship is arriving from/departing to has entries where the country is unknown and is marked as NENURODYTA. I see that in all the other columns unknown or missing entries are marked as NULL except for this column. Therefore, I will change the unknown entries to NULL to keep everything standartized.
 
 ```sql
 UPDATE Laivas_edited
@@ -193,5 +193,19 @@ LOWER([atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas]) = 'NENURODYTA';
 ```
 
 ## DATA VISUALIZATION AND INSIGHTS
+
+Firstly we can do some simple calculations to get some general insights on ship length, ship tonage and to find the most popular shipping agent company.
+
+```sql
+SELECT ROUND(AVG(laivo_ilgis),2) as average_ship_length FROM Laivas_edited;
+SELECT ROUND(AVG(laivo_tonazas),2) as average_ship_tonage FROM Laivas_edited;
+```
+
+```sql
+SELECT TOP (1) agento_imone as most_popular_agent_company FROM Laivas_edited
+WHERE agento_imone IS NOT NULL
+GROUP BY agento_imone
+ORDER BY COUNT(laivo_id) DESC;
+```
 
 ## CONCLUSION
