@@ -1,6 +1,6 @@
 # EXPLORATORY DATA ANALYSIS OF THE SHIPPING TENDENCIES IN PORT OF KLAIPĖDA, LITHUANIA
 
-![alt text]((https://github.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/blob/main/Related%20Images/Klaipedos%20Uosto%20Tendencijos_page-0001.jpg)
+![alt text](https://github.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/blob/main/Related%20Images/Klaipedos%20Uosto%20Tendencijos_page-0001.jpg)
 
 ## GOAL
 
@@ -200,9 +200,13 @@ Firstly we can do some simple calculations to get some general insights on ship 
 SELECT ROUND(AVG(laivo_ilgis),2) as average_ship_length FROM Laivas_edited;
 ```
 
+![alt text](https://raw.githubusercontent.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/refs/heads/main/Related%20Images/avg_ship_length.png)
+
 ```sql
 SELECT ROUND(AVG(laivo_tonazas),0) as average_ship_tonage FROM Laivas_edited;
 ```
+
+![alt text](https://raw.githubusercontent.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/refs/heads/main/Related%20Images/avg_ship_tonage.png)
 
 ```sql
 SELECT TOP (1) agento_imone as most_popular_agent_company FROM Laivas_edited
@@ -211,11 +215,14 @@ GROUP BY agento_imone
 ORDER BY COUNT(laivo_id) DESC;
 ```
 
+![alt text](https://raw.githubusercontent.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/refs/heads/main/Related%20Images/most_popular_agent_company.png)
+
 ```sql
 SELECT TOP (10) laivo_tipas as most_popular_ship_types, COUNT(laivo_id) as number_of_ships FROM Laivas_edited
 GROUP BY laivo_tipas
 ORDER BY COUNT(laivo_id) DESC;
 ```
+![alt text](https://raw.githubusercontent.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/refs/heads/main/Related%20Images/most_popular_ship_types.png)
 
 ```sql
 SELECT TOP (10) registracijos_valstybes_pavadinimas as most_popular_ship_registration_countries, COUNT(laivo_id) as number_of_ships FROM Laivas_edited
@@ -223,11 +230,15 @@ GROUP BY registracijos_valstybes_pavadinimas
 ORDER BY COUNT(laivo_id) DESC;
 ```
 
+![alt text](https://raw.githubusercontent.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/refs/heads/main/Related%20Images/most_popular_ship_registration_countries.png)
+
 ```sql
 SELECT TOP (10) atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas as from_where_do_ships_arrive_to_Klaipeda, COUNT(laivo_id) as number_of_ships FROM Laivas_edited
 WHERE laivo_plaukimo_kryptis = 'ATV' AND atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas IS NOT NULL
 GROUP BY atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas
 ORDER BY COUNT(laivo_id) DESC;
 ```
+
+![alt text](https://raw.githubusercontent.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/refs/heads/main/Related%20Images/from_where_do_ships_arrive_to_Klaipeda.png)
 
 ## CONCLUSION
