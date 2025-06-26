@@ -198,7 +198,10 @@ Firstly we can do some simple calculations to get some general insights on ship 
 
 ```sql
 SELECT ROUND(AVG(laivo_ilgis),2) as average_ship_length FROM Laivas_edited;
-SELECT ROUND(AVG(laivo_tonazas),2) as average_ship_tonage FROM Laivas_edited;
+```
+
+```sql
+SELECT ROUND(AVG(laivo_tonazas),0) as average_ship_tonage FROM Laivas_edited;
 ```
 
 ```sql
@@ -209,19 +212,19 @@ ORDER BY COUNT(laivo_id) DESC;
 ```
 
 ```sql
-SELECT TOP (10) laivo_tipas as most_popular_ship_types FROM Laivas_edited
+SELECT TOP (10) laivo_tipas as most_popular_ship_types, COUNT(laivo_id) as number_of_ships FROM Laivas_edited
 GROUP BY laivo_tipas
 ORDER BY COUNT(laivo_id) DESC;
 ```
 
 ```sql
-SELECT TOP (10) registracijos_valstybes_pavadinimas as most_popular_ship_registration_countrties FROM Laivas_edited
+SELECT TOP (10) registracijos_valstybes_pavadinimas as most_popular_ship_registration_countries, COUNT(laivo_id) as number_of_ships FROM Laivas_edited
 GROUP BY registracijos_valstybes_pavadinimas
 ORDER BY COUNT(laivo_id) DESC;
 ```
 
 ```sql
-SELECT TOP (10) atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas as where_do_ships_arrive_from_to_Klaipeda FROM Laivas_edited
+SELECT TOP (10) atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas as from_where_do_ships_arrive_to_Klaipeda, COUNT(laivo_id) as number_of_ships FROM Laivas_edited
 WHERE laivo_plaukimo_kryptis = 'ATV' AND atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas IS NOT NULL
 GROUP BY atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas
 ORDER BY COUNT(laivo_id) DESC;
