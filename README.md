@@ -4,7 +4,7 @@
 
 ## GOAL
 
-The goal of this project is to apply data analysis tools - SQL and Power BI - to the dataset and then to understand and visualise what shipping tendencies or insights can be drawn in the port of Klaipėda.
+The goal of this project is to apply data analysis tools - **SQL and Power BI** - to the dataset and then to understand and visualise what shipping tendencies or insights can be drawn in the port of Klaipėda.
 
 ## DATA OVERVIEW
 
@@ -19,13 +19,13 @@ The dataset contains 47,802 rows.
 
 ## DATA CLEANING AND PREPARATION
 
-Firstly, I create a new database titled 'Laivai' and import the raw csv file into Microsoft SQL Server Management Studio as a flat file.
+Firstly, I create a new database titled *'Laivai'* and import the raw csv file into Microsoft SQL Server Management Studio as a flat file.
 
 The raw dataset looks like this.
 
 ![alt text](https://raw.githubusercontent.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/refs/heads/main/Related%20Images/raw_dataset.png)
 
-As a safety measure, I duplicate the table Laivas and call it Laivas_edited to keep the original raw dataset in case we need to access it later on.
+As a safety measure, I duplicate the table *'Laivas'* and call it *'Laivas_edited'* to keep the original raw dataset in case we need to access it later on.
 
 ```sql
 SELECT * INTO Laivas_edited
@@ -198,7 +198,7 @@ WHERE
 LOWER([atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas]) LIKE N'žaliojo%';
 ```
 
-Lastly I see that the column of the country the ship is arriving from/departing to has entries where the country is unknown and is marked as NENURODYTA. I see that in all the other columns unknown or missing entries are marked as NULL except for this column. Therefore, I will change the unknown entries to NULL to keep everything standartized.
+Lastly I see that the column of the country the ship is arriving from/departing to has entries where the country is unknown and is marked as *NENURODYTA*. I see that in all the other columns unknown or missing entries are marked as NULL except for this column. Therefore, I will change the unknown entries to NULL to keep everything standartized.
 
 ```sql
 UPDATE Laivas_edited
@@ -209,9 +209,13 @@ LOWER([atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas]) = 'NENURODYTA';
 
 ## DATA VISUALIZATION AND INSIGHTS
 
-Since the data is now cleaned up and ready for visualization, firstly, I can do some simple calculations to get some general insights on ship length, ship tonage and to find the most popular shipping agent company and then I will import the data into Power BI via SQL Server method.
+Since the data is now cleaned up and ready for visualization, I will:
 
-From the laivo_ilgis column we can calculate the average ship length.
+1. Do some simple calculations to get some general insights on ship length, ship tonage and to find the most popular shipping agent company;
+2. Get the Top 10 most popular ship types, ship registration countries and countries of arrival;
+3. Import the data into Power BI via SQL Server method and build a dashboard visualizing the points above.
+
+From the **laivo_ilgis** column we can calculate the average ship length.
 
 ```sql
 SELECT ROUND(AVG(laivo_ilgis),2) as average_ship_length FROM Laivas_edited;
@@ -219,7 +223,7 @@ SELECT ROUND(AVG(laivo_ilgis),2) as average_ship_length FROM Laivas_edited;
 
 ![alt text](https://raw.githubusercontent.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/refs/heads/main/Related%20Images/avg_ship_length.png)
 
-From the laivo_tonazas column we can calculate the average tonage of ships in the Port of Klaipeda.
+From the **laivo_tonazas** column we can calculate the average tonage of ships in the Port of Klaipeda.
 
 ```sql
 SELECT ROUND(AVG(laivo_tonazas),0) as average_ship_tonage FROM Laivas_edited;
@@ -227,7 +231,7 @@ SELECT ROUND(AVG(laivo_tonazas),0) as average_ship_tonage FROM Laivas_edited;
 
 ![alt text](https://raw.githubusercontent.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/refs/heads/main/Related%20Images/avg_ship_tonage.png)
 
-From the agento_imone column we can find out the most popular shipping agent company in the Port of Klaipeda.
+From the **agento_imone** column we can find out the most popular shipping agent company in the Port of Klaipeda.
 
 ```sql
 SELECT TOP (1) agento_imone as most_popular_agent_company FROM Laivas_edited
@@ -244,7 +248,7 @@ Since these three queries are returning a single value, we can place these value
 
 Now we can move on to the queries which will give us multiple values and will be used in bar charts in Power BI to demonstrate the particular tendencies.
 
-I have standarized the laivo_tipas column and now I can use it to get top 10 most popular ship types in the Port of Klaipeda.
+I have standarized the **laivo_tipas** column and now I can use it to get top 10 most popular ship types in the Port of Klaipeda.
 
 ```sql
 SELECT TOP (10) laivo_tipas as most_popular_ship_types, COUNT(laivo_id) as number_of_ships FROM Laivas_edited
@@ -253,7 +257,7 @@ ORDER BY COUNT(laivo_id) DESC;
 ```
 ![alt text](https://raw.githubusercontent.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/refs/heads/main/Related%20Images/most_popular_ship_types.png)
 
-I will do the same with with registracijos_valstybes_pavadinimas and atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas columns.
+I will do the same with with **registracijos_valstybes_pavadinimas** and **atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas** columns.
 
 ```sql
 SELECT TOP (10) registracijos_valstybes_pavadinimas as most_popular_ship_registration_countries, COUNT(laivo_id) as number_of_ships FROM Laivas_edited
@@ -282,10 +286,10 @@ I added the slicer to side of the dashboard to be able to view the trends yearly
 
 In this project I have applied SQL and Power BI to understand and visualise what shipping tendencies or insights can be drawn in the port of Klaipėda.
 
-We can see that the dominant ship types in the Port of Klaipeda are General Cargo, Ro-Ro and Container vessels.
+1. We can see that the dominant ship types in the Port of Klaipeda are General Cargo, Ro-Ro and Container vessels.
 
-The most popular ship registration countries are Lithuania, Cyprus and Denmark. Lithuania being number one is indeed expected as the majority of the fishing ships, port operation and admin vessels are registered in Lithuania and these types do make up a large part of the total number of vessels.
+2. The most popular ship registration countries are Lithuania, Cyprus and Denmark. Lithuania being number one is indeed expected as the majority of the fishing ships, port operation and admin vessels are registered in Lithuania and these types do make up a large part of the total number of vessels.
 
-The ships are arriving to Klaipeda mostly from Sweden, Germany, Poland and Denmark which is again an expected find knowing that Lithuania together with all of these countries are located by and along the Baltic Sea which makes for easy partnership and shipping line creation.
+3. The ships are arriving to Klaipeda are mostly from Sweden, Germany, Poland and Denmark which is again an expected find knowing that Lithuania together with all of these countries are located by and along the Baltic Sea which makes for an easy partnership and shipping line creation.
 
-The average ship length and average tonage can be an important information to the port engineers and planners when further developing the port.
+4. The average ship length and average tonage can be an important information to the port engineers and planners when further developing the port.
