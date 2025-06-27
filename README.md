@@ -288,7 +288,7 @@ In this project I have applied **SQL** and **Power BI** to understand and visual
 
 1. We can see that the dominant ship types in the Port of Klaipeda are General Cargo, Ro-Ro and Container vessels.
 
-2. The most popular ship registration countries are Lithuania, Cyprus and Denmark. Lithuania being number one is indeed expected as the majority of the fishing ships, port operation and admin vessels are registered in Lithuania and these types do make up a large part of the total number of vessels.
+2. The most popular ship registration countries are Lithuania, Cyprus and Denmark. Lithuania being number one is indeed expected as the majority of the fishing, port operation and admin vessels are registered in Lithuania and these vessel types make up a large part of the total number of vessels.
 
 3. The ships are arriving to Klaipeda are mostly from Sweden, Germany, Poland and Denmark which is again an expected find knowing that Lithuania together with all of these countries are located by and along the Baltic Sea which makes for an easy partnership and shipping line creation.
 
