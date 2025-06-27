@@ -19,11 +19,22 @@ The dataset contains 47,802 rows.
 
 ## DATA CLEANING AND PREPARATION
 
+Firstly, I create a new database titled 'Laivai' and import the raw csv file into Microsoft SQL Server Management Studio as a flat file.
+
 The raw dataset looks like this.
 
 ![alt text](https://raw.githubusercontent.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/refs/heads/main/Related%20Images/raw_dataset.png)
 
-Firstly I check if there are any duplicate laivo_id entries.
+As a safety measure, I duplicate the table Laivas and call it Laivas_edited to keep the original raw dataset in case we need to access it later on.
+
+```sql
+SELECT * INTO Laivas_edited
+FROM Laivas;
+```
+
+Then, I start to look over the data and see what needs clean-up, standartization and etc.
+
+I check if there are any duplicate laivo_id entries.
 
 ```sql
 SELECT laivo_id, COUNT(*)
