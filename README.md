@@ -209,7 +209,9 @@ LOWER([atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas]) = 'NENURODYTA';
 
 ## DATA VISUALIZATION AND INSIGHTS
 
-Firstly we can do some simple calculations to get some general insights on ship length, ship tonage and to find the most popular shipping agent company.
+Since the data is now cleaned up and ready for visualization, firstly, I can do some simple calculations to get some general insights on ship length, ship tonage and to find the most popular shipping agent company and then I will import the data into Power BI via SQL Server method.
+
+From the laivo_ilgis column we can calculate the average ship length.
 
 ```sql
 SELECT ROUND(AVG(laivo_ilgis),2) as average_ship_length FROM Laivas_edited;
@@ -217,11 +219,15 @@ SELECT ROUND(AVG(laivo_ilgis),2) as average_ship_length FROM Laivas_edited;
 
 ![alt text](https://raw.githubusercontent.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/refs/heads/main/Related%20Images/avg_ship_length.png)
 
+From the laivo_tonazas column we can calculate the average tonage of ships in the Port of Klaipeda.
+
 ```sql
 SELECT ROUND(AVG(laivo_tonazas),0) as average_ship_tonage FROM Laivas_edited;
 ```
 
 ![alt text](https://raw.githubusercontent.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/refs/heads/main/Related%20Images/avg_ship_tonage.png)
+
+From the agento_imone column we can find out the most popular shipping agent company in the Port of Klaipeda.
 
 ```sql
 SELECT TOP (1) agento_imone as most_popular_agent_company FROM Laivas_edited
@@ -232,12 +238,22 @@ ORDER BY COUNT(laivo_id) DESC;
 
 ![alt text](https://raw.githubusercontent.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/refs/heads/main/Related%20Images/most_popular_agent_company.png)
 
+Since these three queries are returning a single value, we can place these values as cards in Power BI.
+
+![alt text](https://raw.githubusercontent.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/refs/heads/main/Related%20Images/cards.png)
+
+Now we can move on to the queries which will give us multiple values and will be used in bar charts in Power BI to demonstrate the particular tendencies.
+
+I have standarized the laivo_tipas column and now I can use it to get top 10 most popular ship types in the Port of Klaipeda.
+
 ```sql
 SELECT TOP (10) laivo_tipas as most_popular_ship_types, COUNT(laivo_id) as number_of_ships FROM Laivas_edited
 GROUP BY laivo_tipas
 ORDER BY COUNT(laivo_id) DESC;
 ```
 ![alt text](https://raw.githubusercontent.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/refs/heads/main/Related%20Images/most_popular_ship_types.png)
+
+I will do the same with with registracijos_valstybes_pavadinimas and atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas columns.
 
 ```sql
 SELECT TOP (10) registracijos_valstybes_pavadinimas as most_popular_ship_registration_countries, COUNT(laivo_id) as number_of_ships FROM Laivas_edited
@@ -256,4 +272,12 @@ ORDER BY COUNT(laivo_id) DESC;
 
 ![alt text](https://raw.githubusercontent.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/refs/heads/main/Related%20Images/from_where_do_ships_arrive_to_Klaipeda.png)
 
+After getting our wanted queries and values we can use Power BI to create a nice and clean dashboard showcasing our results and trends that are happening in the Port of Klaipeda.
+
+![alt text](https://github.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/blob/main/Related%20Images/Klaipedos%20Uosto%20Tendencijos_page-0001.jpg)
+
+I added the slicer to side of the dashboard to be able to view the trends yearly and added a map visual to display from where do the ships tend to come to Klaipeda.
+
 ## CONCLUSION
+
+In this project I have applied SQL and Power BI to understand and visualise what shipping tendencies or insights can be drawn in the port of Klaipėda.
