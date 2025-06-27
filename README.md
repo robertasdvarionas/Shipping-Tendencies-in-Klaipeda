@@ -19,6 +19,10 @@ The dataset contains 47,802 rows.
 
 ## DATA CLEANING AND PREPARATION
 
+The raw dataset looks like this.
+
+![alt text](https://raw.githubusercontent.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/refs/heads/main/Related%20Images/raw_dataset.png)
+
 Firstly I check if there are any duplicate laivo_id entries.
 
 ```sql
