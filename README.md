@@ -19,22 +19,22 @@ The dataset contains 47,802 rows.
 
 ## DATA CLEANING AND PREPARATION
 
-Firstly, I create a new database titled *'Laivai'* and import the raw csv file into Microsoft SQL Server Management Studio as a flat file.
+Firstly, I created a new database titled *'Laivai'* and imported the raw csv file into Microsoft SQL Server Management Studio as a flat file.
 
 The raw dataset looks like this.
 
 ![alt text](https://raw.githubusercontent.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/refs/heads/main/Related%20Images/raw_dataset.png)
 
-As a safety measure, I duplicate the table *'Laivas'* and call it *'Laivas_edited'* to keep the original raw dataset in case we need to access it later on.
+As a safety measure, I duplicated the table *'Laivas'* and called it *'Laivas_edited'* to keep the original raw dataset in case I need to access it later on.
 
 ```sql
 SELECT * INTO Laivas_edited
 FROM Laivas;
 ```
 
-Then, I start to look over the data and see what needs clean-up, standartization and etc.
+Then, I started to look over the data to see what needs clean-up, standartization and etc.
 
-I check if there are any duplicate laivo_id entries.
+I checked if there are any duplicate **laivo_id** column entries.
 
 ```sql
 SELECT laivo_id, COUNT(*)
@@ -43,9 +43,9 @@ GROUP BY laivo_id
 HAVING COUNT(*) > 1;
 ```
 
-Since there are no duplicates I move forward.
+Since there are no duplicates, I moved forward.
 
-One of the main columns in this dataset is the ship type and I see that there are way too many distinct ship types. It seems like a lot of them are overlapping in function or type, therefore, we can standardize them into concise categories for a nicer and cleaner visualization later on.
+One of the main columns in this dataset is the ship type and I saw that there were way too many distinct ship types. A lot of them are overlapping in function or type, therefore, I could standardize them into concise categories for a nicer and cleaner visualization later on.
 
 ```sql
 UPDATE Laivas_edited
@@ -93,9 +93,9 @@ LOWER([laivo_tipas]) LIKE 'sportinis' OR
 LOWER([laivo_tipas]) LIKE 'vidaus%';
 ```
 
-Then I check the ship registration country column.
+Then I checked the ship registration country column.
 
-Power BI can accept Lithuanian country names and perfectly plot them on the map. However, I see that there are quite a few entries where the country or territory name will not be translated correcly by Power BI, therefore, some standartization is needed. To be safe, I changed the incorrect translations to English to be 100% sure that Power BI plots them correctly.
+Power BI can accept Lithuanian country names and perfectly plot them on the map. However, I saw that there are quite a few entries where the country or territory name will not be translated correcly by Power BI, therefore, some standartization is needed. To be safe, I changed the incorrect translations to English to be 100% sure that Power BI plots them correctly.
 
 ```sql
 UPDATE Laivas_edited
@@ -144,7 +144,7 @@ WHERE
 LOWER([registracijos_valstybes_pavadinimas]) LIKE '%vinsentas%';
 ```
 
-The same problem appears in the column of the country the ship is arriving from/departing to. I will standaridize the country names in the same manner as above.
+The same problem appears in the column of the country the ship is arriving from/departing to. I standaridized the country names in the same manner as above.
 
 ```sql
 UPDATE Laivas_edited
@@ -198,7 +198,7 @@ WHERE
 LOWER([atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas]) LIKE N'žaliojo%';
 ```
 
-Lastly I see that the column of the country the ship is arriving from/departing to has entries where the country is unknown and is marked as *NENURODYTA*. I see that in all the other columns unknown or missing entries are marked as NULL except for this column. Therefore, I will change the unknown entries to NULL to keep everything standartized.
+Lastly I saw that the column of the country the ship is arriving from/departing to has entries where the country is unknown and is marked as *NENURODYTA*. All the other columns with unknown or missing entries had them marked as NULL except for this column. Therefore, I changed the unknown entries to NULL to keep everything standartized.
 
 ```sql
 UPDATE Laivas_edited
@@ -209,13 +209,13 @@ LOWER([atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas]) = 'NENURODYTA';
 
 ## DATA VISUALIZATION AND INSIGHTS
 
-Since the data is now cleaned up and ready for visualization, I will:
+Since the data is now cleaned up and ready for visualization, I will do the following:
 
 1. Do some simple calculations to get some general insights on ship length, ship tonage and to find the most popular shipping agent company;
 2. Get the Top 10 most popular ship types, ship registration countries and countries of arrival;
 3. Import the data into Power BI via SQL Server method and build a dashboard visualizing the points above.
 
-From the **laivo_ilgis** column we can calculate the average ship length.
+From the **laivo_ilgis** column I calculated the average ship length.
 
 ```sql
 SELECT ROUND(AVG(laivo_ilgis),2) as average_ship_length FROM Laivas_edited;
@@ -223,7 +223,7 @@ SELECT ROUND(AVG(laivo_ilgis),2) as average_ship_length FROM Laivas_edited;
 
 ![alt text](https://raw.githubusercontent.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/refs/heads/main/Related%20Images/avg_ship_length.png)
 
-From the **laivo_tonazas** column we can calculate the average tonage of ships in the Port of Klaipeda.
+From the **laivo_tonazas** column I calculated the average tonage of ships in the Port of Klaipeda.
 
 ```sql
 SELECT ROUND(AVG(laivo_tonazas),0) as average_ship_tonage FROM Laivas_edited;
@@ -231,7 +231,7 @@ SELECT ROUND(AVG(laivo_tonazas),0) as average_ship_tonage FROM Laivas_edited;
 
 ![alt text](https://raw.githubusercontent.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/refs/heads/main/Related%20Images/avg_ship_tonage.png)
 
-From the **agento_imone** column we can find out the most popular shipping agent company in the Port of Klaipeda.
+From the **agento_imone** column I found the most popular shipping agent company in the Port of Klaipeda.
 
 ```sql
 SELECT TOP (1) agento_imone as most_popular_agent_company FROM Laivas_edited
@@ -242,13 +242,13 @@ ORDER BY COUNT(laivo_id) DESC;
 
 ![alt text](https://raw.githubusercontent.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/refs/heads/main/Related%20Images/most_popular_agent_company.png)
 
-Since these three queries are returning a single value, we can place these values as cards in Power BI.
+Since these three queries are returning a single value, I can place these values as cards in **Power BI**.
 
 ![alt text](https://raw.githubusercontent.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/refs/heads/main/Related%20Images/cards.png)
 
-Now we can move on to the queries which will give us multiple values and will be used in bar charts in Power BI to demonstrate the particular tendencies.
+Now I moved on to the queries which will give me multiple values and will be used in bar charts in **Power BI** to demonstrate the particular tendencies.
 
-I have standarized the **laivo_tipas** column and now I can use it to get top 10 most popular ship types in the Port of Klaipeda.
+I have standarized the **laivo_tipas** column and now I could use it to get Top 10 most popular ship types in the Port of Klaipeda.
 
 ```sql
 SELECT TOP (10) laivo_tipas as most_popular_ship_types, COUNT(laivo_id) as number_of_ships FROM Laivas_edited
@@ -257,7 +257,7 @@ ORDER BY COUNT(laivo_id) DESC;
 ```
 ![alt text](https://raw.githubusercontent.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/refs/heads/main/Related%20Images/most_popular_ship_types.png)
 
-I will do the same with with **registracijos_valstybes_pavadinimas** and **atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas** columns.
+I did the same with with **registracijos_valstybes_pavadinimas** and **atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas** columns.
 
 ```sql
 SELECT TOP (10) registracijos_valstybes_pavadinimas as most_popular_ship_registration_countries, COUNT(laivo_id) as number_of_ships FROM Laivas_edited
@@ -276,7 +276,7 @@ ORDER BY COUNT(laivo_id) DESC;
 
 ![alt text](https://raw.githubusercontent.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/refs/heads/main/Related%20Images/from_where_do_ships_arrive_to_Klaipeda.png)
 
-After getting our wanted queries and values we can use Power BI to create a nice and clean dashboard showcasing our results and trends that are happening in the Port of Klaipeda.
+After getting the wanted queries and values, I used **Power BI** to create a nice and clean dashboard showcasing our results and trends that are happening in the Port of Klaipeda.
 
 ![alt text](https://github.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/blob/main/Related%20Images/Klaipedos%20Uosto%20Tendencijos_page-0001.jpg)
 
@@ -284,7 +284,7 @@ I added the slicer to side of the dashboard to be able to view the trends yearly
 
 ## CONCLUSION
 
-In this project I have applied SQL and Power BI to understand and visualise what shipping tendencies or insights can be drawn in the port of Klaipėda.
+In this project I have applied **SQL** and **Power BI** to understand and visualise what shipping tendencies or insights can be drawn in the port of Klaipėda.
 
 1. We can see that the dominant ship types in the Port of Klaipeda are General Cargo, Ro-Ro and Container vessels.
 
