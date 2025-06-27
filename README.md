@@ -34,7 +34,7 @@ FROM Laivas;
 
 Then, I started to look over the data to see what needs clean-up, standartization and etc.
 
-I checked if there are any duplicate **laivo_id** column entries.
+I checked if there are any duplicate ship ID - **laivo_id** - column entries.
 
 ```sql
 SELECT laivo_id, COUNT(*)
@@ -45,7 +45,7 @@ HAVING COUNT(*) > 1;
 
 Since there are no duplicates, I moved forward.
 
-One of the main columns in this dataset is the ship type **laivo_tipas** column and I saw that there were too many distinct ship types. A lot of them were overlapping in function or type, therefore, I could standardize them into concise categories for a nicer and cleaner visualization later on.
+One of the main columns in this dataset is the ship type - **laivo_tipas** - column and I saw that there were too many distinct ship types. A lot of them were overlapping in function or type, therefore, I could standardize them into concise categories for a nicer and cleaner visualization later on.
 
 ```sql
 UPDATE Laivas_edited
@@ -93,7 +93,7 @@ LOWER([laivo_tipas]) LIKE 'sportinis' OR
 LOWER([laivo_tipas]) LIKE 'vidaus%';
 ```
 
-Then I checked the ship registration country **registracijos_valstybes_pavadinimas** column.
+Then I checked the ship registration country - **registracijos_valstybes_pavadinimas** - column.
 
 Power BI can accept Lithuanian country names and perfectly plot them on the map. However, I saw that there are quite a few entries where the country or territory name will not be translated correcly by **Power BI**, therefore, some standartization is needed. To be safe, I changed the incorrect translations to English to be 100% sure that **Power BI** plots them correctly.
 
