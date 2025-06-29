@@ -207,7 +207,7 @@ WHERE
 LOWER([atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas]) = 'NENURODYTA';
 ```
 
-## DATA VISUALIZATION AND INSIGHTS
+## EXPLORATORY DATA ANALYSIS AND VISUALIZATION
 
 Since the data is now cleaned up and ready for visualization, I will do the following:
 
