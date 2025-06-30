@@ -24,6 +24,7 @@ Firstly, I created a new database titled *'Laivai'* and imported the raw csv fil
 The raw dataset looks like this.
 
 ![alt text](https://raw.githubusercontent.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/refs/heads/main/Related%20Images/raw_dataset.png)
+![alt text]()
 
 As a safety measure, I duplicated the table *'Laivas'* and called it *'Laivas_edited'* to keep the original raw dataset in case I need to access it later on.
 
