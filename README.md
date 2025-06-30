@@ -34,6 +34,13 @@ FROM Laivas;
 
 Then, I started to look over the data to see what needs clean-up, standartization and etc.
 
+After a general overview, I immediately saw that the first four columns will not be relevant in our project, hence I decided to remove them from our dataset.
+
+```sql
+ALTER TABLE Laivas_edited
+DROP COLUMN type,id,revision,page_next;
+```
+
 I checked if there are any duplicate ship ID - **laivo_id** - column entries.
 
 ```sql
