@@ -260,6 +260,6 @@ In this project I have applied **SQL** and **Power BI** to understand and visual
 
 2. The most popular ship registration countries are Lithuania, Cyprus and Denmark. Lithuania being number one is indeed expected as the majority of the fishing, port operation and admin vessels are registered in Lithuania and these vessel types make up a large part of the total number of vessels.
 
-3. The ships are arriving to Klaipeda are mostly from Sweden, Germany, Poland and Denmark which is again an expected find knowing that Lithuania together with all of these countries are located by and along the Baltic Sea which makes for an easy partnership and shipping line creation.
+3. The ships that are arriving to Klaipeda are mostly from Sweden, Germany, Poland and Denmark which is again an expected finding knowing that Lithuania together with all of these countries are located by and along the Baltic Sea which makes for an easy partnership and shipping line creation.
 
 4. The average ship length and average tonage can be an important information to the port engineers and planners when further developing the port.
