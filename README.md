@@ -57,48 +57,55 @@ One of the main columns in this dataset is the ship type - **laivo_tipas** - col
 
 ```sql
 UPDATE Laivas_edited
-SET laivo_tipas = 'Tanklaivis'
-WHERE laivo_tipas LIKE '%tanklaivis%';
+SET laivo_tipas = CASE
+    WHEN lower(laivo_tipas) LIKE '%tanklaivis%' THEN 'Tanklaivis'
+    WHEN LOWER(laivo_tipas) LIKE '%bendr%' THEN N'Bendrųjų krovinių'
+    WHEN LOWER(laivo_tipas) LIKE '%ro-ro%' THEN 'Ro-ro'
+    WHEN LOWER(laivo_tipas) LIKE N'%barž%' THEN N'Barža'
+    WHEN LOWER(laivo_tipas) LIKE '%biriems%' THEN 'Biriems kroviniams'
+    
+    WHEN LOWER(laivo_tipas) LIKE '%avarinis%'
+       OR LOWER(laivo_tipas) LIKE '%stumikas%'
+       OR LOWER(laivo_tipas) LIKE '%vilkikas%'
+       OR LOWER(laivo_tipas) LIKE N'%priemonėms'
+       OR LOWER(laivo_tipas) LIKE '%pagalbinis%'
+       OR LOWER(laivo_tipas) LIKE '%kranas%'
+       OR LOWER(laivo_tipas) LIKE '%pontonas%'
+       OR LOWER(laivo_tipas) LIKE '%mokymo%'
+       OR LOWER(laivo_tipas) LIKE '%nesavaeigis%'
+       OR LOWER(laivo_tipas) LIKE '%trauleris%'
+       OR LOWER(laivo_tipas) LIKE '%hidrografinis%'
+       OR LOWER(laivo_tipas) LIKE N'žem%' THEN N'Uosto operacijų'
 
-UPDATE Laivas_edited
-SET laivo_tipas = N'Bendrųjų krovinių'
-WHERE LOWER([laivo_tipas]) LIKE '%bendr%';
+    WHEN LOWER(laivo_tipas) LIKE '%kitas%'
+       OR LOWER(laivo_tipas) LIKE '%transporto%'
+       OR LOWER(laivo_tipas) LIKE '%sportinis%'
+       OR LOWER(laivo_tipas) LIKE '%vidaus%' THEN 'Kiti'
 
-UPDATE Laivas_edited
-SET laivo_tipas = 'Ro-ro'
-WHERE LOWER([laivo_tipas]) LIKE '%ro-ro%';
-
-UPDATE Laivas_edited
-SET laivo_tipas = N'Barža'
-WHERE LOWER([laivo_tipas]) LIKE N'%barž%';
-
-UPDATE Laivas_edited
-SET laivo_tipas = 'Biriems kroviniams'
-WHERE LOWER([laivo_tipas]) LIKE '%biriems%';
-
-UPDATE Laivas_edited
-SET laivo_tipas = N'Uosto operacijų'
-WHERE 
-LOWER([laivo_tipas]) LIKE '%avarinis%' OR
-LOWER([laivo_tipas]) LIKE '%stumikas%' OR
-LOWER([laivo_tipas]) LIKE '%vilkikas%' OR
-LOWER([laivo_tipas]) LIKE N'%priemonėms' OR
-LOWER([laivo_tipas]) LIKE '%pagalbinis%' OR
-LOWER([laivo_tipas]) LIKE '%kranas%' OR
-LOWER([laivo_tipas]) LIKE 'pontonas' OR
-LOWER([laivo_tipas]) LIKE 'mokymo' OR
-LOWER([laivo_tipas]) LIKE 'nesavaeigis%' OR
-LOWER([laivo_tipas]) LIKE 'trauleris' OR
-LOWER([laivo_tipas]) LIKE '%hidrografinis%' OR
-LOWER([laivo_tipas]) LIKE N'žem%';
-
-UPDATE Laivas_edited
-SET laivo_tipas = 'Kiti'
+    ELSE laivo_tipas
+END
 WHERE
-LOWER([laivo_tipas]) LIKE '%kitas%' OR
-LOWER([laivo_tipas]) LIKE '%transporto%' OR
-LOWER([laivo_tipas]) LIKE 'sportinis' OR
-LOWER([laivo_tipas]) LIKE 'vidaus%';
+    LOWER(laivo_tipas) LIKE '%tanklaivis%'
+ OR LOWER(laivo_tipas) LIKE '%bendr%'
+ OR LOWER(laivo_tipas) LIKE '%ro-ro%'
+ OR LOWER(laivo_tipas) LIKE N'%barž%'
+ OR LOWER(laivo_tipas) LIKE '%biriems%'
+ OR LOWER(laivo_tipas) LIKE '%avarinis%'
+ OR LOWER(laivo_tipas) LIKE '%stumikas%'
+ OR LOWER(laivo_tipas) LIKE '%vilkikas%'
+ OR LOWER(laivo_tipas) LIKE N'%priemonėms'
+ OR LOWER(laivo_tipas) LIKE '%pagalbinis%'
+ OR LOWER(laivo_tipas) LIKE '%kranas%'
+ OR LOWER(laivo_tipas) LIKE '%pontonas%'
+ OR LOWER(laivo_tipas) LIKE '%mokymo%'
+ OR LOWER(laivo_tipas) LIKE '%nesavaeigis%'
+ OR LOWER(laivo_tipas) LIKE '%trauleris%'
+ OR LOWER(laivo_tipas) LIKE '%hidrografinis%'
+ OR LOWER(laivo_tipas) LIKE N'žem%'
+ OR LOWER(laivo_tipas) LIKE '%kitas%'
+ OR LOWER(laivo_tipas) LIKE '%transporto%'
+ OR LOWER(laivo_tipas) LIKE '%sportinis%'
+ OR LOWER(laivo_tipas) LIKE '%vidaus%';
 ```
 
 Then I checked the ship registration country - **registracijos_valstybes_pavadinimas** - column.
@@ -107,103 +114,58 @@ Power BI can accept Lithuanian country names and perfectly plot them on the map.
 
 ```sql
 UPDATE Laivas_edited
-SET registracijos_valstybes_pavadinimas = 'Virgin Islands'
+SET registracijos_valstybes_pavadinimas = CASE
+    WHEN LOWER(registracijos_valstybes_pavadinimas) LIKE '%mergel%' THEN 'Virgin Islands'
+    WHEN LOWER(registracijos_valstybes_pavadinimas) LIKE '%britanija%' THEN 'United Kingdom'
+    WHEN LOWER(registracijos_valstybes_pavadinimas) LIKE 'farer%' THEN 'Faroe Islands'
+    WHEN LOWER(registracijos_valstybes_pavadinimas) LIKE 'kaiman%' THEN 'Cayman Islands'
+    WHEN LOWER(registracijos_valstybes_pavadinimas) LIKE N'maršalo%' THEN 'Marshall Islands'
+    WHEN LOWER(registracijos_valstybes_pavadinimas) LIKE 'olandijos%' THEN 'Aruba'
+    WHEN LOWER(registracijos_valstybes_pavadinimas) LIKE '%arabija%' THEN 'Saudi Arabia'
+    WHEN LOWER(registracijos_valstybes_pavadinimas) LIKE '%kristoferis%' THEN 'Saint Kitts'
+    WHEN LOWER(registracijos_valstybes_pavadinimas) LIKE '%vinsentas%' THEN 'Saint Vincent and the Grenadines'
+    ELSE registracijos_valstybes_pavadinimas
+END
 WHERE
-LOWER([registracijos_valstybes_pavadinimas]) LIKE '%mergel%';
-
-UPDATE Laivas_edited
-SET registracijos_valstybes_pavadinimas = 'United Kingdom'
-WHERE
-LOWER([registracijos_valstybes_pavadinimas]) LIKE '%britanija%';
-
-UPDATE Laivas_edited
-SET registracijos_valstybes_pavadinimas = 'Faroe Islands'
-WHERE
-LOWER([registracijos_valstybes_pavadinimas]) LIKE 'farer%';
-
-UPDATE Laivas_edited
-SET registracijos_valstybes_pavadinimas = 'Cayman Islands'
-WHERE
-LOWER([registracijos_valstybes_pavadinimas]) LIKE 'kaiman%';
-
-UPDATE Laivas_edited
-SET registracijos_valstybes_pavadinimas = 'Marshall Islands'
-WHERE
-LOWER([registracijos_valstybes_pavadinimas]) LIKE N'maršalo%';
-
-UPDATE Laivas_edited
-SET registracijos_valstybes_pavadinimas = 'Aruba'
-WHERE
-LOWER([registracijos_valstybes_pavadinimas]) LIKE 'Olandijos%';
-
-UPDATE Laivas_edited
-SET registracijos_valstybes_pavadinimas = 'Saudi Arabia'
-WHERE
-LOWER([registracijos_valstybes_pavadinimas]) LIKE '%arabija%';
-
-UPDATE Laivas_edited
-SET registracijos_valstybes_pavadinimas = 'Saint Kitts'
-WHERE
-LOWER([registracijos_valstybes_pavadinimas]) LIKE '%kristoferis%';
-
-UPDATE Laivas_edited
-SET registracijos_valstybes_pavadinimas = 'Saint Vincent and the Grenadines'
-WHERE
-LOWER([registracijos_valstybes_pavadinimas]) LIKE '%vinsentas%';
+    LOWER(registracijos_valstybes_pavadinimas) LIKE '%mergel%'
+ OR LOWER(registracijos_valstybes_pavadinimas) LIKE '%britanija%'
+ OR LOWER(registracijos_valstybes_pavadinimas) LIKE 'farer%'
+ OR LOWER(registracijos_valstybes_pavadinimas) LIKE 'kaiman%'
+ OR LOWER(registracijos_valstybes_pavadinimas) LIKE N'maršalo%'
+ OR LOWER(registracijos_valstybes_pavadinimas) LIKE 'olandijos%'
+ OR LOWER(registracijos_valstybes_pavadinimas) LIKE '%arabija%'
+ OR LOWER(registracijos_valstybes_pavadinimas) LIKE '%kristoferis%'
+ OR LOWER(registracijos_valstybes_pavadinimas) LIKE '%vinsentas%';
 ```
 
 The same problem appears in the column of the country the ship is arriving from/departing to - **atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas**. I standaridized the country names in the same manner as above.
 
 ```sql
 UPDATE Laivas_edited
-SET atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas = 'Democratic Republic of the Congo'
+SET atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas = CASE
+    WHEN LOWER(atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas) LIKE 'd.kongas%' THEN 'Democratic Republic of the Congo'
+    WHEN LOWER(atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas) LIKE 'dominikos%' THEN 'Dominican Republic'
+    WHEN LOWER(atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas) LIKE 'dramblio%' THEN 'Ivory Coast'
+    WHEN LOWER(atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas) LIKE '%britanija%' THEN 'United Kingdom'
+    WHEN LOWER(atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas) LIKE 'farer%' THEN 'Faroe Islands'
+    WHEN LOWER(atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas) LIKE '%zelandija%' THEN 'New Zealand'
+    WHEN LOWER(atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas) LIKE 'par' THEN 'South Africa'
+    WHEN LOWER(atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas) LIKE '%arabija%' THEN 'Saudi Arabia'
+    WHEN LOWER(atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas) LIKE 'trinidadas' THEN 'Trinidad and Tobago'
+    WHEN LOWER(atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas) LIKE N'žaliojo%' THEN 'Cape Verde'
+    ELSE atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas
+END
 WHERE
-LOWER([atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas]) LIKE 'd.kongas%';
-
-UPDATE Laivas_edited
-SET atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas = 'Dominican Republic'
-WHERE
-LOWER([atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas]) LIKE 'dominikos%';
-
-UPDATE Laivas_edited
-SET atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas = 'Ivory Coast'
-WHERE
-LOWER([atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas]) LIKE 'dramblio%';
-
-UPDATE Laivas_edited
-SET atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas = 'United Kingdom'
-WHERE
-LOWER([atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas]) LIKE '%britanija%';
-
-UPDATE Laivas_edited
-SET atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas = 'Faroe Islands'
-WHERE
-LOWER([atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas]) LIKE 'farer%';
-
-UPDATE Laivas_edited
-SET atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas = 'New Zealand'
-WHERE
-LOWER([atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas]) LIKE '%zelandija%';
-
-UPDATE Laivas_edited
-SET atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas = 'South Africa'
-WHERE
-LOWER([atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas]) LIKE 'par';
-
-UPDATE Laivas_edited
-SET atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas = 'Saudi Arabia'
-WHERE
-LOWER([atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas]) LIKE '%arabija%';
-
-UPDATE Laivas_edited
-SET atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas = 'Trinidad and Tobago'
-WHERE
-LOWER([atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas]) LIKE 'trinidadas';
-
-UPDATE Laivas_edited
-SET atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas = 'Cape Verde'
-WHERE
-LOWER([atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas]) LIKE N'žaliojo%';
+    LOWER(atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas) LIKE 'd.kongas%'
+ OR LOWER(atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas) LIKE 'dominikos%'
+ OR LOWER(atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas) LIKE 'dramblio%'
+ OR LOWER(atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas) LIKE '%britanija%'
+ OR LOWER(atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas) LIKE 'farer%'
+ OR LOWER(atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas) LIKE '%zelandija%'
+ OR LOWER(atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas) LIKE 'par'
+ OR LOWER(atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas) LIKE '%arabija%'
+ OR LOWER(atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas) LIKE 'trinidadas'
+ OR LOWER(atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas) LIKE N'žaliojo%';
 ```
 
 Lastly I saw that the column of the country the ship is arriving from/departing to - **atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas** - has entries where the country is unknown and is marked as *NENURODYTA*. All the other columns with unknown or missing entries had them marked as NULL except for this column. Therefore, I changed the unknown entries to NULL to keep everything standartized.
@@ -212,7 +174,7 @@ Lastly I saw that the column of the country the ship is arriving from/departing 
 UPDATE Laivas_edited
 SET atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas = NULL
 WHERE
-LOWER([atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas]) = 'NENURODYTA';
+LOWER([atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas]) = 'nenurodyta';
 ```
 
 ## EXPLORATORY DATA ANALYSIS AND VISUALIZATION
