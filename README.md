@@ -138,7 +138,7 @@ WHERE
  OR LOWER(registracijos_valstybes_pavadinimas) LIKE '%vinsentas%';
 ```
 
-The same problem appears in the column of the country the ship is arriving from/departing to - **atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas**. I standaridized the country names in the same manner as above.
+The same problem appears in the column of the country the ship is arriving from/departing to - **atvykimo_ar_isvykimo_uosto_valstybes_pavadinimas**. I standardized the country names in the same manner as above.
 
 ```sql
 UPDATE Laivas_edited
