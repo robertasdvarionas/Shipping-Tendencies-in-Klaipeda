@@ -1,6 +1,6 @@
 # EXPLORATORY DATA ANALYSIS OF THE SHIPPING TENDENCIES IN PORT OF KLAIPĖDA, LITHUANIA
 
-![alt text](https://raw.githubusercontent.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda-EDA/refs/heads/main/Related%20Images/Klaipedos%20Uosto%20Tendencijos_page-0001.jpg)
+![alt text](https://raw.githubusercontent.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda-EDA/refs/heads/main/Related%20Images/Klaipedos%20Uosto%20Tendencijos_page-0001.png)
 
 ## GOAL
 
@@ -248,7 +248,7 @@ ORDER BY COUNT(laivo_id) DESC;
 
 After getting the wanted queries and values, I used **Power BI** to create a nice and clean dashboard showcasing our results and trends that are happening in the Port of Klaipeda.
 
-![alt text](https://github.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/blob/main/Related%20Images/Klaipedos%20Uosto%20Tendencijos_page-0001.jpg)
+![alt text](https://raw.githubusercontent.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda-EDA/refs/heads/main/Related%20Images/Klaipedos%20Uosto%20Tendencijos_page-0001.png)
 
 I added the slicer to side of the dashboard to be able to view the trends yearly and added a map visual to display from where do the ships tend to come to Klaipeda.
 
