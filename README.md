@@ -1,6 +1,6 @@
 # EXPLORATORY DATA ANALYSIS OF THE SHIPPING TENDENCIES IN PORT OF KLAIPĖDA, LITHUANIA
 
-![alt text](https://github.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda/blob/main/Related%20Images/Klaipedos%20Uosto%20Tendencijos_page-0001.jpg)
+![alt text](https://raw.githubusercontent.com/robertasdvarionas/Shipping-Tendencies-in-Klaipeda-EDA/refs/heads/main/Related%20Images/Klaipedos%20Uosto%20Tendencijos_page-0001.jpg)
 
 ## GOAL
 
